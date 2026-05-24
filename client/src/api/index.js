@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-// API 基础 URL - 始终使用相对路径，通过 Nginx 反向代理
-const API_BASE_URL = '/api';
+// API 基础 URL - 开发环境使用相对路径（通过 Vite 代理），生产环境使用完整地址
+const API_BASE_URL = import.meta.env.DEV ? '/api' : 'https://mvsep.com/api';
 
 const API_TOKEN = import.meta.env.VITE_MVSEP_API_KEY || '';
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   timeout: 300000,
-  // 生产环境需要配置跨域
   headers: {
     'Accept': 'application/json',
   }
